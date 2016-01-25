@@ -1,17 +1,17 @@
 
-<h2>Login Page</h2>
+<h2>Log In</h2>
 
 <form role="form">
   <p class="form-group">
-    <label for="loginEmail">email</label>
+    <label for="loginEmail">Email</label>
     <input id="loginEmail" required name="email" type="email" ng-model="email" class="form-control" />
   </p>
   <p class="form-group">
-    <label for="loginPass">password</label>
+    <label for="loginPass">Password</label>
     <input id="loginPass" required name="pass" type="password" ng-model="pass" class="form-control" />
   </p>
   <p class="form-group" ng-cloak ng-show="createMode">
-    <label for="loginConfirm">confirm pass</label>
+    <label for="loginConfirm">Confirm pass</label>
     <input id="loginConfirm" required name="confirm" type="password" ng-model="confirm" class="form-control" />
   </p>
 
@@ -23,5 +23,13 @@
     <button  class="btn btn-default" ng-cloak ng-show="createMode" ng-click="createMode = false">Cancel</button>
   </p>
 </form>
-<p ng-show="err" class="bg-danger">{{err}}</p>
-
+<!-- <p ng-show="err" class="bg-danger">{{err}}</p> -->
+<div class="alert alert-danger" role="alert" ng-show="err">
+  <loader class="loader"></loader>
+  {{err}}
+</div>
+<div class="alert alert-info" role="alert" ng-show="loading">
+  <loader class="loader"></loader>
+  {{loading}}
+</div>
+<!-- <p class="info" ng-show="loading">{{loading}}</p> -->
