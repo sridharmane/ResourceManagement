@@ -7,7 +7,7 @@
  * Provides rudimentary account management functions.
  */
 angular.module('resourceManagementApp')
-  .controller('AccountCtrl', function ($scope, user, Auth, Ref, $firebaseObject, $timeout,Roles) {
+  .controller('AccountCtrl', function ($scope, user, Auth, Ref, $firebaseObject, $timeout,Roles,Certifications) {
     //SRS,Staff
 
     $scope.user = user;
@@ -15,6 +15,7 @@ angular.module('resourceManagementApp')
     $scope.messages = [];
 
     $scope.roles = Roles;
+    $scope.certifications = Certifications;
 
     //Get the account profile firebase
     var profile = $firebaseObject(Ref.child('users/'+user.uid));
