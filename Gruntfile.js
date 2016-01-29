@@ -142,7 +142,7 @@ module.exports = function (grunt) {
           src: [
             '.tmp',
             '<%= yeoman.dist %>/{,*/}*',
-            '!<%= yeoman.dist %>/.git{,*/}*'
+            '!<%= yeoman.dist %>/.git{,*/}*',
           ]
         }]
       },
@@ -389,9 +389,18 @@ module.exports = function (grunt) {
         }, {
           expand: true,
           cwd: '.',
+          // flatten:true,
           src: 'bower_components/bootstrap-sass-official/assets/fonts/bootstrap/*',
           dest: '<%= yeoman.dist %>'
-        }]
+        },
+        {
+         expand: true,
+         cwd: '.',
+         flatten:true,
+         src: 'bower_components/components-font-awesome/fonts/*',
+         dest: '<%= yeoman.dist %>/styles/fonts'
+       }
+      ]
       },
       styles: {
         expand: true,
