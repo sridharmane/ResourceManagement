@@ -1,6 +1,45 @@
+
 <!DOCTYPE HTML>
 <uib-tabset>
+  <span class="pull-right"><i class="fa fa-user"></i> {{profile.name}}</span>
   <uib-tab>
+    <uib-tab-heading>
+      <i class="fa fa-list"></i> Current Postings
+    </uib-tab-heading>
+    <div class="alert alert-info alert-dismissible margin-top" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <strong>Heads Up!</strong> Only postings matching your profile show up here.
+    </div>
+    <div class="row marketing">
+      <div class="panel panel-default" ng-repeat="posting in postings">
+        <div class="panel-body">
+          <div class="col-sm-8">
+            <div><h5><i class="fa fa-location-arrow"></i> Facility</h5>
+              <p class="lead">{{getFacilityName(posting.facility)}}</p>
+            </div>
+            <div><h5><i class="fa fa-calendar"></i> Date</h5>
+              <p class="lead">{{posting.date | date :'EEE, MMM-dd, yyyy'}}</p>
+            </div>
+            <div><h5><i class="fa fa-clock-o"></i> Shift</h5>
+              <p class="lead">{{posting.startTime | date :'hh:mm a' }}
+                <i class="fa fa-long-arrow-right"></i> {{posting.endTime | date :'hh:mm a'}} ({{getTimeDifference(posting.endTime,posting.startTime)}})
+              </p>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="col-sm-12 btn-group-vertical" role="group">
+              <button class="btn btn-success btn-icon"><i class="fa fa-check fa-lg"></i> Accept</button>
+              <button class="btn btn-success btn-icon"><i class="fa fa-eye fa-lg"></i> View Applications</button>
+            </div>
+            <div class="col-sm-12 btn-group-vertical margin-top" role="group">
+              <button class="btn btn-danger btn-icon"><i class="fa fa-archive fa-lg"></i> Archive</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </uib-tab>
+  <uib-tab disable="profile.role !== '0'">
     <uib-tab-heading>
       <i class="fa fa-plus"></i> New Posting
     </uib-tab-heading>
@@ -11,7 +50,7 @@
         <div class="form-group">
           <label class="col-sm-2 control-label">Facility</label>
           <div class="col-sm-10">
-            <select class="form-control btn btn-default" name="singleSelect" id="singleSelect" ng-model="posting.facility">
+            <select class="form-control btn btn-default" name="singleSelect" id="singleSelect" ng-model="posting.facility" required>
               <option value="">---Select---</option> <!-- not selected / blank option -->
               <option ng-repeat="facility in facilities" value="{{facility.id}}">{{facility.name}}</option> <!-- interpolation -->
             </select>
@@ -25,7 +64,7 @@
         <label for="inputEmail" class="col-sm-2 control-label">Shift Date</label>
         <div class="col-sm-10">
           <p class="input-group">
-            <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="posting.date" is-open="popup1.opened" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+            <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="posting.date" is-open="popup1.opened" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" required/>
             <span class="input-group-btn">
               <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
             </span>
@@ -35,7 +74,7 @@
       <div class="form-group">
         <label for="inputEmail" class="col-sm-2 control-label">Shift Start Time</label>
         <div class="col-sm-10">
-          <uib-timepicker class="col-sm-3" ng-model="posting.startTime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></uib-timepicker>
+          <uib-timepicker class="col-sm-3" ng-model="posting.startTime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian" required></uib-timepicker>
           <!-- <div class="col-sm-3"></div>
           <button type="button" class="btn btn-info col-sm-3" ng-click="toggleMode()"><i class="fa fa-clock-o"></i> 12H / 24H</button>
           <button type="button" class="btn btn-danger col-sm-2" ng-click="clear()"><i class="fa fa-trash"></i> Clear</button> -->
@@ -44,14 +83,14 @@
       <div class="form-group">
         <label for="inputEmail" class="col-sm-2 control-label">Shift End Time</label>
         <div class="col-sm-10">
-          <uib-timepicker ng-model="posting.endTime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></uib-timepicker>
+          <uib-timepicker ng-model="posting.endTime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian" required></uib-timepicker>
         </div>
       </div>
       <div class="form-group">
         <label class="col-sm-2 control-label">Allow Roles</label>
         <div class="col-sm-10">
-          <div class="radio" ng-repeat="role in roles">
-            <input type="radio" name="radioRole" id="radio{{role.$id}}" value="{{role.id}}" ng-model="posting.role" />
+          <div class="radio" ng-repeat="role in roles" ng-hide="role.id==0">
+            <input type="radio" name="radioRole" id="radio{{role.$id}}" value="{{role.id}}" ng-model="posting.role" required/>
             <label for="radio{{role.$id}}">
               {{role.name}}
             </label>
@@ -62,43 +101,31 @@
         <label class="col-sm-2 control-label">Certifications Required</label>
         <div class="col-sm-10">
           <div class="checkbox col-sm-6" ng-repeat="certification in certifications">
-            <input type="checkbox" id="checkbox{{certification.$id}}" ng-model="posting.certifications[certification.id]"/>
+            <input type="checkbox" id="checkbox{{certification.$id}}" ng-model="posting.certifications[certification.id]"  ng-required="!someCerificationsSelected(posting.certifications)"/>
             <label for="checkbox{{certification.$id}}">
               {{certification.name}}
             </label>
           </div>
         </div>
       </div>
-      <div class="form-group" >
+      <div class="form-group">
         <div class="col-sm-10 col-sm-span-2">
-          <input type="submit" name="Create Posting" class="btn btn-success">Create Posting</input>
+          <input type="submit" value="Create Posting" class="btn btn-success col-sm-6 col-sm-offset-2" />
         </div>
       </div>
+      <div class="alert alert-info" role="alert" ng-show="loading">
+        <i class="fa fa-spinner fa-spin"></i>
+        {{loading}}
+      </div>
+      <div class="alert alert-danger" role="alert" ng-show="err">
+        <i class="fa fa-exclamation"></i>
+        {{err}}
+      </div>
+      <div class="alert alert-success" role="alert" ng-show="success">
+        <i class="fa fa-check"></i>
+        {{success}}
+      </div>
     </form>
-  </div>
-</uib-tab>
-<uib-tab>
-  <uib-tab-heading>
-    <i class="fa fa-list"></i> Current Postings
-  </uib-tab-heading>
-  <div class="row marketing">
-    <h4>Firebase</h4>
-    <p>
-      Firebase is a powerful API to store and sync data in realtime.
-    </p>
-
-    <h4>Create Posting</h4>
-    <p>
-
-    </p>
-
-    <h4>Angular</h4>
-    <p>
-      AngularJS is a toolset for building the framework most suited to your application development.
-    </p>
-
-    <h4>Karma</h4>
-    <p>Spectacular Test Runner for JavaScript.</p>
   </div>
 </uib-tab>
 </uib-tabset>

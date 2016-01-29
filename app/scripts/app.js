@@ -18,5 +18,6 @@ angular.module('resourceManagementApp', [
     'firebase',
     'firebase.ref',
     'firebase.auth',
-    'ui.bootstrap'
+    'ui.bootstrap',
+    'angularMoment'
   ]);

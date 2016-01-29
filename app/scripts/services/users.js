@@ -23,6 +23,7 @@ angular.module('resourceManagementApp')
   // AngularJS will instantiate a singleton by calling "new" on this function
   var Users = {
     createProfile:function(user){
+
       var ref = Ref.child('users/'+user.uid);
 
       var userObj = $firebaseObject(ref);
@@ -32,7 +33,7 @@ angular.module('resourceManagementApp')
       return userObj.$save();
     },
     getProfile: function(uid){
-      return $firebaseObject(users.child(uid));
+      return users.$getRecord(uid);
     },
     getDisplayName: function(uid){
       return users.$getRecord(uid).displayName;

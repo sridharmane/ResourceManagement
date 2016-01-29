@@ -92,5 +92,12 @@ body {
     border-bottom: 0;
   }
 }
-
+// .btn-group-vertical{
+  .btn{
+    text-align: left;
+  }
+  .margin-top {
+     margin-top:20px;
+   }
+// }
 @import "loader";
