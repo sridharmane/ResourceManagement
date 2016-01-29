@@ -15,6 +15,7 @@ angular.module('resourceManagementApp')
   $scope.roles = Roles;
   $scope.certifications = Certifications;
   $scope.facilities = Facilities;
+  $scope.postings = Postings;
   $scope.posting ={
     createdBy:$scope.user.uid
   };
@@ -24,8 +25,8 @@ angular.module('resourceManagementApp')
   */
   $scope.createPosting = function(){
     $scope.posting.createdOn = Date.now();
-    Postings.push($scope.posting);
-    Postings.$save();
+    $scope.postings.push($scope.posting);
+    // Postings.$save();
   };
   /*
     Datepicker
