@@ -2,7 +2,7 @@
 <html class="no-js">
 <head>
   <meta charset="utf-8">
-  <title></title>
+  <title>Resource Management</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width">
   <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
@@ -42,7 +42,7 @@
           <ul class="nav navbar-nav" ng-controller="NavbarCtrl">
             <li class="" ng-class="{'active': isActive('/')}"><a href="#/">Home</a></li>
             <!-- //angularfire -->
-            <li  ng-class="{ 'active': isActive('/chat')}"><a ng-href="#/chat">Chat</a></li>
+            <!-- <li  ng-class="{ 'active': isActive('/chat')}"><a ng-href="#/chat">Chat</a></li> -->
             <li ng-class="{ 'active':(isActive('/login') || isActive('/account'))}">
               <a ng-hide-auth="" href="#/login">Log In</a>
               <a ng-show-auth="" href="#/account">Account</a>
