@@ -1,0 +1,80 @@
+<div class="row marketing">
+  <form class=" form-horizontal" ng-submit="createPosting()">
+    <!-- <div>{{posting}}</div> -->
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Facility</label>
+      <div class="col-sm-10">
+        <select class="form-control btn btn-default" name="singleSelect" id="singleSelect" ng-model="posting.facility" required>
+          <option value="">---Select---</option> <!-- not selected / blank option -->
+          <option ng-repeat="facility in facilities" value="{{facility.id}}">{{facility.name}}</option> <!-- interpolation -->
+        </select>
+        <!-- <br> -->
+        <!-- <select class="form-control btn btn-default" ng-options="facility.name for facility in facilities track by facility.id"
+        ng-model="posting.facility">
+      </select> -->
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputEmail" class="col-sm-2 control-label">Shift Date</label>
+    <div class="col-sm-10">
+      <p class="input-group">
+        <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="posting.date" is-open="popup1.opened" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" required/>
+        <span class="input-group-btn">
+          <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+        </span>
+      </p>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputEmail" class="col-sm-2 control-label">Shift Start Time</label>
+    <div class="col-sm-10">
+      <uib-timepicker class="col-sm-3" ng-model="posting.startTime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian" required></uib-timepicker>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputEmail" class="col-sm-2 control-label">Shift End Time</label>
+    <div class="col-sm-10">
+      <uib-timepicker ng-model="posting.endTime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian" required></uib-timepicker>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Allow Roles</label>
+    <div class="col-sm-10">
+      <div class="radio" ng-repeat="role in roles" ng-hide="role.id==0">
+        <input type="radio" name="radioRole" id="radio{{role.$id}}" value="{{role.id}}" ng-model="posting.role" required/>
+        <label for="radio{{role.$id}}">
+          {{role.name}}
+        </label>
+      </div>
+    </div>
+  </div>
+  <div class="form-group" >
+    <label class="col-sm-2 control-label">Certifications Required</label>
+    <div class="col-sm-10">
+      <div class="checkbox col-sm-6" ng-repeat="certification in certifications">
+        <input type="checkbox" id="checkbox{{certification.$id}}" ng-model="posting.certifications[certification.id]"  ng-required="!someCerificationsSelected(posting.certifications)"/>
+        <label for="checkbox{{certification.$id}}">
+          {{certification.name}}
+        </label>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-10 col-sm-span-2">
+      <input type="submit" value="Create Posting" class="btn btn-success col-sm-6 col-sm-offset-2" />
+    </div>
+  </div>
+  <div class="alert alert-info" role="alert" ng-show="loading">
+    <i class="fa fa-spinner fa-spin"></i>
+    {{loading}}
+  </div>
+  <div class="alert alert-danger" role="alert" ng-show="err">
+    <i class="fa fa-exclamation"></i>
+    {{err}}
+  </div>
+  <div class="alert alert-success" role="alert" ng-show="success">
+    <i class="fa fa-check"></i>
+    {{success}}
+  </div>
+</form>
+</div>

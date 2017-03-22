@@ -34,90 +34,97 @@
             <span class="icon-bar"></span>
           </button>
 
-          <a class="navbar-brand" href="#/">Resource Management</a>
+          <a class="navbar-brand" ui-sref="app.postings.list">Resource Management</a>
         </div>
 
         <div class="collapse navbar-collapse" id="js-navbar-collapse">
 
           <ul class="nav navbar-nav" ng-controller="NavbarCtrl">
-            <li class="" ng-class="{'active': isActive('/')}"><a href="#/">Home</a></li>
+            <!-- <ul class="nav navbar-nav"> -->
+
+            <!-- <li ui-sref-active="active"><a ui-sref="app">Home</a></li> -->
+            <li ui-sref-active="active" ng-show="isLoggedIn()"><a ui-sref="app.postings.list">Postings</a></li>
             <!-- //angularfire -->
             <!-- <li  ng-class="{ 'active': isActive('/chat')}"><a ng-href="#/chat">Chat</a></li> -->
-            <li ng-class="{ 'active':(isActive('/login') || isActive('/account'))}">
-              <a ng-hide-auth="" href="#/login">Log In</a>
-              <a ng-show-auth="" href="#/account">Account</a>
-            </li>
+            <li ui-sref-active="active" ng-hide="isLoggedIn()"><a ui-sref="app.login">Log In</a></li>
+            <li ui-sref-active="active" ng-show="isLoggedIn()"><a ui-sref="app.account">Account</a></li>
+            </ul>
+          </div>
 
-          </ul>
         </div>
-
       </div>
     </div>
-  </div>
 
-  <div class="container">
-
-    <div ng-view=""></div>
-  </div>
-
-  <div class="footer">
     <div class="container">
-      <p><span class="glyphicon glyphicon-console"></span> prototype by Sridhar Mane {{getActive()}}</p>
+
+      <div ui-view="content"></div>
     </div>
-  </div>
+
+    <div class="footer">
+      <div class="container">
+        <p><span class="glyphicon glyphicon-console"></span> prototype by Sridhar Mane</p>
+      </div>
+    </div>
 
 
-  <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
-  <!-- <script>
-  !function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){
+    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
+    <!-- <script>
+    !function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){
     (A[l].q=A[l].q||[]).push(arguments)},A[l].l=+new Date,a=n.createElement(g),
     r=n.getElementsByTagName(g)[0],a.src=u,r.parentNode.insertBefore(a,r)
   }(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
   ga('create', 'UA-XXXXX-X');
   ga('send', 'pageview');
-  </script> -->
+</script> -->
 
-  <!-- build:js(.) scripts/vendor.js -->
-  <!-- bower:js -->
-  <script src="bower_components/jquery/dist/jquery.js"></script>
-  <script src="bower_components/angular/angular.js"></script>
-  <script src="bower_components/firebase/firebase.js"></script>
-  <script src="bower_components/angularfire/dist/angularfire.js"></script>
-  <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.js"></script>
-  <script src="bower_components/angular-animate/angular-animate.js"></script>
-  <script src="bower_components/angular-cookies/angular-cookies.js"></script>
-  <script src="bower_components/angular-resource/angular-resource.js"></script>
-  <script src="bower_components/angular-route/angular-route.js"></script>
-  <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
-  <script src="bower_components/angular-touch/angular-touch.js"></script>
-  <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-  <script src="bower_components/moment/moment.js"></script>
-  <script src="bower_components/angular-moment/angular-moment.js"></script>
-  <!-- endbower -->
-  <!-- endbuild -->
+<!-- build:js(.) scripts/vendor.js -->
+<!-- bower:js -->
+<script src="bower_components/jquery/dist/jquery.js"></script>
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/firebase/firebase.js"></script>
+<script src="bower_components/angularfire/dist/angularfire.js"></script>
+<script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.js"></script>
+<script src="bower_components/angular-animate/angular-animate.js"></script>
+<script src="bower_components/angular-cookies/angular-cookies.js"></script>
+<script src="bower_components/angular-resource/angular-resource.js"></script>
+<script src="bower_components/angular-route/angular-route.js"></script>
+<script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+<script src="bower_components/angular-touch/angular-touch.js"></script>
+<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+<script src="bower_components/moment/moment.js"></script>
+<script src="bower_components/angular-moment/angular-moment.js"></script>
+<script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+<script src="bower_components/angular-ui-router-tabs/src/ui-router-tabs.js"></script>
+<!-- endbower -->
+<!-- endbuild -->
 
-  <!-- build:js({.tmp,app}) scripts/scripts.js -->
-  <script src="scripts/app.js"></script>
-  <script src="scripts/controllers/main.js"></script>
-  <script src="scripts/angularfire/config.js"></script>
-  <script src="scripts/angularfire/firebase.ref.js"></script>
-  <script src="scripts/controllers/chat.js"></script>
-  <script src="scripts/filters/reverse.js"></script>
-  <script src="scripts/angularfire/auth.js"></script>
-  <script src="scripts/controllers/login.js"></script>
-  <script src="scripts/controllers/account.js"></script>
-  <script src="scripts/directives/ngShowAuth.js"></script>
-  <script src="scripts/directives/ngHideAuth.js"></script>
-  <script src="scripts/routes.js"></script>
-  <script src="scripts/controllers/navbar.js"></script>
-  <script src="scripts/services/roles.js"></script>
-  <script src="scripts/services/users.js"></script>
-  <script src="scripts/directives/loader.js"></script>
-  <script src="scripts/services/certifications.js"></script>
-  <script src="scripts/services/facilities.js"></script>
-  <script src="scripts/services/postings.js"></script>
-  <script src="scripts/filters/datediff.js"></script>
-  <!-- endbuild -->
+<!-- build:js({.tmp,app}) scripts/scripts.js -->
+<script src="scripts/app.js"></script>
+<script src="scripts/controllers/main.js"></script>
+<script src="scripts/angularfire/config.js"></script>
+<script src="scripts/angularfire/firebase.ref.js"></script>
+<script src="scripts/controllers/chat.js"></script>
+<script src="scripts/filters/reverse.js"></script>
+<script src="scripts/angularfire/auth.js"></script>
+<script src="scripts/controllers/login.js"></script>
+<script src="scripts/controllers/account.js"></script>
+<script src="scripts/directives/ngShowAuth.js"></script>
+<script src="scripts/directives/ngHideAuth.js"></script>
+<script src="scripts/routes.js"></script>
+<script src="scripts/controllers/navbar.js"></script>
+<script src="scripts/services/roles.js"></script>
+<script src="scripts/services/users.js"></script>
+<script src="scripts/directives/loader.js"></script>
+<script src="scripts/services/certifications.js"></script>
+<script src="scripts/services/facilities.js"></script>
+<script src="scripts/services/postings.js"></script>
+<script src="scripts/filters/datediff.js"></script>
+<script src="scripts/services/user.js"></script>
+<script src="scripts/controllers/postings.js"></script>
+<script src="scripts/controllers/listpostings.js"></script>
+<script src="scripts/controllers/manageposting.js"></script>
+<script src="scripts/controllers/createposting.js"></script>
+<!-- endbuild -->
 </body>
 </html>

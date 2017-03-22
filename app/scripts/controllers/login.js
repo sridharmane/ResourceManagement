@@ -7,12 +7,12 @@
 * Manages authentication to any active providers.
 */
 angular.module('resourceManagementApp')
-.controller('LoginCtrl', function ($scope, Auth, $location, $q, Ref, $timeout, Users) {
+.controller('LoginCtrl', function ($scope, Auth, $state, $q, Ref, $timeout, Users) {
 
-  $scope.isActive = function (viewLocation) {
-    console.log(viewLocation);
-    return viewLocation === $location.path();
-  };
+  // $scope.isActive = function (viewLocation) {
+  //   console.log(viewLocation);
+  //   return viewLocation === $location.path();
+  // };
 
   $scope.passwordLogin = function(email, pass) {
     $scope.err = null;
@@ -68,9 +68,11 @@ angular.module('resourceManagementApp')
 
 
 
-function redirect() {
+function redirect(user) {
+  Users.setCurrentProfile(user.uid);
   $scope.loading = null;
-  $location.path('/account');
+  $state.go('app.account');
+  // $location.path('/account');
 }
 
 function showError(err) {

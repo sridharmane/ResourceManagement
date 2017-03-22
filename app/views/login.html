@@ -25,8 +25,7 @@
 </form>
 <!-- <p ng-show="err" class="bg-danger">{{err}}</p> -->
 <div class="alert alert-danger" role="alert" ng-show="err">
-  <loader class="loader"></loader>
-  {{err}}
+  {{err.code}}
 </div>
 <div class="alert alert-info" role="alert" ng-show="loading">
   <loader class="loader"></loader>

@@ -1,0 +1,30 @@
+<div class="alert alert-info alert-dismissible margin-top" role="alert">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  <strong>Heads Up!</strong> Only postings matching your profile show up here.
+</div>
+<div class="row marketing">
+  <div class="panel panel-default" ng-repeat="posting in postings">
+    <div class="panel-body">
+      <div class="col-sm-8">
+        <div><h5><i class="fa fa-location-arrow"></i> Facility</h5>
+          <p class="lead">{{getFacilityName(posting.facility)}}</p>
+        </div>
+        <div><h5><i class="fa fa-calendar"></i> Date</h5>
+          <p class="lead">{{posting.date | date :'EEE, MMM-dd, yyyy'}}</p>
+        </div>
+        <div><h5><i class="fa fa-clock-o"></i> Shift</h5>
+          <p class="lead">{{posting.startTime | date :'hh:mm a' }}
+            <i class="fa fa-long-arrow-right"></i> {{posting.endTime | date :'hh:mm a'}} ({{getTimeDifference(posting.endTime,posting.startTime)}})
+          </p>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="row">
+          <button class="btn btn-success btn-icon btn-posting" ng-hide="profile.isManager()"><i class="fa fa-check"></i> Claim</button>
+          <button class="btn btn-success btn-icon btn-posting" ng-show="profile.isManager()" ui-sref="app.postings.manage({id: posting.$id})"><i class="fa fa-list"></i> View Claims</button>
+          <button class="btn btn-danger btn-icon btn-posting" ng-show="profile.isManager()" ng-click="print()" ><i class="fa fa-trash"></i> Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

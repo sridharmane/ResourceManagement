@@ -1,0 +1,7 @@
+<ul class="nav nav-tabs">
+  <li role="presentation" ui-sref-active="active"><a ui-sref="app.postings.list"><i class="fa fa-list"></i> Current Postings</a></li>
+  <li role="presentation" ui-sref-active="active" ng-show="profile.isManager()"><a ui-sref="app.postings.create"><i class="fa fa-plus"></i> Create Posting</a></li>
+  <li role="presentation" ui-sref-active="active" ng-show="profile.isManager()"><a ui-sref="app.postings.manage"><i class="fa fa-pencil"></i> Manage Posting</a></li>
+</ul>
+<div ui-view="postings">
+</div>
